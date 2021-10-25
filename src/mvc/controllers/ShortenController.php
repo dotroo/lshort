@@ -11,7 +11,11 @@ class ShortenController extends Controller
     {
         $this->model = new ShortLinkModel();
 
+        
         $originalUrl = $_POST['original'];
+        if(!$this->isValidUrl($originalUrl)) {
+            exit('Not a valid url');
+        }
 
         $checkExistingPair = $this->model->getRowByOriginalUrl($originalUrl);
         if (!empty($checkExistingPair)) {
@@ -51,5 +55,12 @@ class ShortenController extends Controller
         }
 
         return $shortUri;
+    }
+
+    private function isValidUrl(string $url): bool
+    {
+        $regExUrl = '/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&\'\(\)\*\+,;=.]+$/';
+        
+        return (preg_match($regExUrl, $url) > 0);
     }
 }
