@@ -1,0 +1,21 @@
+{
+    "name": "nikita/lshort",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Nikita\\Lshort\\": "src/",
+            "MVC\\Controllers\\": "src/mvc/controllers/",
+            "MVC\\Core\\": "src/mvc/core/",
+            "MVC\\Models\\": "src/mvc/models/",
+            "MVC\\Views\\": "src/mvc/views/",
+            "Db\\": "src/Db"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nikita V",
+            "email": "vinick96@gmail.com"
+        }
+    ],
+    "require": {}
+}
