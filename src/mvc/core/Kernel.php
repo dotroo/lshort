@@ -3,6 +3,8 @@
 namespace MVC\Core;
 
 use MVC\Core\App;
+use MVC\Controllers\ShortenController;
+use MVC\Controllers\ResolveController;
 
 class Kernel
 {
@@ -17,7 +19,7 @@ class Kernel
 
     public function launchAction($controllerName, $actionName)
     {
-        $controllerName = file_exists(__DIR__ . "/../controllers/{$controllerName}.php") ? ucfirst($controllerName) . 'Controller' : $this->defaultControllerName;
+        $controllerName = file_exists(__DIR__ . '/../controllers/' . ucfirst($controllerName) . 'Controller.php') ? ucfirst($controllerName) . 'Controller' : $this->defaultControllerName;
 
         $actionName = empty($actionName) ? $this->defaultActionName : $actionName;
         

@@ -11,5 +11,5 @@ abstract class Model
     /**
      * Добавляет или обновляет запись в БД
      */
-    public abstract function saveToDb($data);
+    public abstract function saveToDb();
 }

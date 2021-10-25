@@ -2,7 +2,7 @@
 
 namespace MVC\Models;
 
-use Db;
+use Db\Db;
 use MVC\Core\App;
 use MVC\Core\Model;
 
@@ -31,12 +31,12 @@ class ShortLinkModel extends Model
 
     public function getShortUri(): string
     {
-        return $this->shortLink;
+        return $this->shortUri;
     }
 
     public function setShortUri(string $link): self
     {
-        $this->shortLink = $link;
+        $this->shortUri = $link;
 
         return $this;
     }
@@ -69,7 +69,7 @@ class ShortLinkModel extends Model
     {
         Db::getInstance();
         $select = 'SELECT id, original_url, short_uri FROM links WHERE id = ?';
-        $statement = Db::request($select, $id);
+        $statement = Db::request($select, [$id]);
         $data = Db::fetch($statement);
 
         return $data;
@@ -79,7 +79,7 @@ class ShortLinkModel extends Model
     {
         Db::getInstance();
         $select = 'SELECT original_url, short_uri FROM links WHERE short_uri = ?';
-        $statement = Db::request($select, $uri);
+        $statement = Db::request($select, [$uri]);
         $data = Db::fetch($statement);
 
         return $data;
@@ -89,7 +89,7 @@ class ShortLinkModel extends Model
     {
         Db::getInstance();
         $select = 'SELECT original_url, short_uri FROM links WHERE original_url = ?';
-        $statement = Db::request($select, $url);
+        $statement = Db::request($select, [$url]);
         $data = Db::fetch($statement);
 
         return $data;

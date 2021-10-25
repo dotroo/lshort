@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'DBHOST'    => '',
-    'DBNAME'    => '',
-    'DBCHARSET' => '',
-    'DBLOGIN'   => '',
-    'DBPASS'    => ''
+    'DBHOST'    => 'localhost',
+    'DBNAME'    => 'links',
+    'DBCHARSET' => 'utf8',
+    'DBLOGIN'   => 'script',
+    'DBPASS'    => 'phppass'
 ];

@@ -8,8 +8,9 @@ class Router
     {
         $routes = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         //игнорируем хост в routes[0], оставляем только составляющие uri
-        $result[0] = $routes[1];
-        $result[1] = $routes[2];
+        for($i = 0; $i < count($routes)-1; $i++){
+            $result[$i] = $routes[$i+1];
+        }
         
         return $result;
     }

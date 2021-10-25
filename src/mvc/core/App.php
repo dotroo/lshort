@@ -16,7 +16,7 @@ class App
     {
         self::$router = new Router;
         self::$kernel = new Kernel;
-        self::$config = include( __DIR__ . '/../../configs/appconfig.php');
+        self::$config = include_once( __DIR__ . '/../../configs/appconfig.php');
     }
 
 }

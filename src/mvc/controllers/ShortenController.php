@@ -2,6 +2,7 @@
 
 namespace MVC\Controllers;
 
+use MVC\Core\App;
 use MVC\Core\Controller;
 use MVC\Models\ShortLinkModel;
 
@@ -11,16 +12,15 @@ class ShortenController extends Controller
     {
         $this->model = new ShortLinkModel();
 
-        
         $originalUrl = $_POST['original'];
-        if(!$this->isValidUrl($originalUrl)) {
+        if(!filter_var($originalUrl, FILTER_VALIDATE_URL)) {
             exit('Not a valid url');
         }
 
         $checkExistingPair = $this->model->getRowByOriginalUrl($originalUrl);
         if (!empty($checkExistingPair)) {
             //без UI просто отдаём ссылку в ответе на запрос из контроллера
-            echo App::$config['host'] . '/' .  $checkExistingPair['short_uri'];
+            echo App::$config['host'] . '/' .  $checkExistingPair['short_uri'] . '/';
             exit();
         }
 
@@ -41,7 +41,7 @@ class ShortenController extends Controller
             ->saveToDb();
 
         //без UI просто отдаём ссылку в ответе на запрос из контроллера
-        echo App::$config['host'] . '/' .  $shortUri;
+        echo App::$config['host'] . '/' .  $shortUri . '/';
     }
 
     private function generateShortUri(int $length): string
@@ -55,12 +55,5 @@ class ShortenController extends Controller
         }
 
         return $shortUri;
-    }
-
-    private function isValidUrl(string $url): bool
-    {
-        $regExUrl = '/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&\'\(\)\*\+,;=.]+$/';
-        
-        return (preg_match($regExUrl, $url) > 0);
     }
 }

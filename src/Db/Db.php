@@ -2,7 +2,7 @@
 
 namespace Db;
 
-include_once __DIR__ . '/../configs/dbconfig.php';
+
 
 use \PDO;
 
@@ -18,6 +18,8 @@ class Db
     //Создаем инстанс коннекта, если еще нет, иначе возвращаем его
     public static function getInstance() :\PDO 
     {
+        $dbconfig = include_once(__DIR__ . '/../configs/dbconfig.php');
+
         if (self::$instance === null) {
             $opt = 
             [

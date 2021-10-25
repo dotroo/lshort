@@ -11,7 +11,9 @@ class ResolveController extends Controller
     public function handle()
     {
         $this->model = new ShortLinkModel();
+
         $uri = $_SERVER['REQUEST_URI'];
+        $uri = trim($uri, '/');
 
         $urlPair = $this->model->getRowByUri($uri);
         if (!empty($urlPair)) {
