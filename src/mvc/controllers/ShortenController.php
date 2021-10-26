@@ -12,7 +12,9 @@ class ShortenController extends Controller
     {
         $this->model = new ShortLinkModel();
 
-        $originalUrl = $_POST['original'];
+        $postData = json_decode(file_get_contents('php://input'), true);
+        $originalUrl = $postData['original'];
+
         if(!filter_var($originalUrl, FILTER_VALIDATE_URL)) {
             exit('Not a valid url');
         }
@@ -20,7 +22,10 @@ class ShortenController extends Controller
         $checkExistingPair = $this->model->getRowByOriginalUrl($originalUrl);
         if (!empty($checkExistingPair)) {
             //без UI просто отдаём ссылку в ответе на запрос из контроллера
-            echo App::$config['host'] . '/' .  $checkExistingPair['short_uri'] . '/';
+            $response = [
+                'short_link' => App::$config['host'] . '/' .  $checkExistingPair['short_uri']
+            ];
+            echo json_encode($response, JSON_PRETTY_PRINT);
             exit();
         }
 
@@ -41,7 +46,10 @@ class ShortenController extends Controller
             ->saveToDb();
 
         //без UI просто отдаём ссылку в ответе на запрос из контроллера
-        echo App::$config['host'] . '/' .  $shortUri . '/';
+        $response = [
+            'short_link' => App::$config['host'] . '/' .  $shortUri
+        ];
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
     private function generateShortUri(int $length): string

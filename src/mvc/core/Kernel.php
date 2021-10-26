@@ -13,7 +13,16 @@ class Kernel
     
     public function launch()
     {
-        list($controllerName, $actionName) = App::$router->resolve();
+        $controllerName = '';
+        $actionName = '';
+        $resolvedRequest = App::$router->resolve();
+        switch (count($resolvedRequest)) {
+            case 1:
+                $controllerName = $resolvedRequest[0];
+                break;
+            default:
+                list($controllerName, $actionName) = $resolvedRequest;
+        }
         $this->launchAction($controllerName, $actionName);
     }
 
