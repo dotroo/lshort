@@ -14,9 +14,8 @@ POST /shorten
 ### Request Body Parameters
 "original" -> original url to shorten
 ### Request example
-```json
 POST https:\/\/yourhost.com/shorten
-
+```json
 {
     "original": "https://google.com"
 }
