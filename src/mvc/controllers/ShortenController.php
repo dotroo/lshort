@@ -12,6 +12,11 @@ class ShortenController extends Controller
     {
         $this->model = new ShortLinkModel();
 
+        if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('HTTP/1.1 405 Method Not Allowed');
+            exit();
+        }
+
         $postData = json_decode(file_get_contents('php://input'), true);
         $originalUrl = $postData['original'];
 
