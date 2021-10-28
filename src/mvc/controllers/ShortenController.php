@@ -12,7 +12,7 @@ class ShortenController extends Controller
     {
         $this->model = new ShortLinkModel();
 
-        if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('HTTP/1.1 405 Method Not Allowed');
             exit();
         }
@@ -20,7 +20,7 @@ class ShortenController extends Controller
         $postData = json_decode(file_get_contents('php://input'), true);
         $originalUrl = $postData['original'];
 
-        if(!filter_var($originalUrl, FILTER_VALIDATE_URL)) {
+        if (!filter_var($originalUrl, FILTER_VALIDATE_URL)) {
             exit('Not a valid url');
         }
 
@@ -41,10 +41,10 @@ class ShortenController extends Controller
         do {
             $shortUri = $this->generateShortUri(App::$config['urilen']);
 
-            if(!empty($this->model->getRowByUri($shortUri))) {
+            if (!empty($this->model->getRowByUri($shortUri))) {
                 $isDuplicateUri = true;
             }
-        } while($isDuplicateUri);
+        } while ($isDuplicateUri);
 
         $this->model->setShortUri($shortUri)
             ->setOriginalLink($originalUrl)
